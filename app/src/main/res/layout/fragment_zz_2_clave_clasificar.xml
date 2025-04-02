@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ama_claro"
+    android:orientation="vertical"
+    tools:context=".fragmentos.zz_2_clave_clasificar">
+
+    <!--tV0 :: Buscando...-->
+    <TextView
+        android:id="@+id/tV0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/verde_limon_1"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:text="@string/buscando"
+        android:layout_weight="0"/>
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="12">
+        <ScrollView
+            android:id="@+id/scrollview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:background="@color/cel_claro">
+
+            <TextView
+                android:id="@+id/tV1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/verde_medio"
+                android:layout_margin="4dp"
+                android:padding="10dp"
+                android:text="@string/criterio_1"
+                android:textColor="#FFFF8D"
+                android:textSize="20sp" >
+
+            </TextView>
+        </ScrollView>
+        <ScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ama_claro">
+
+            <TableLayout
+                android:id="@+id/table"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TableRow
+                    android:id="@+id/tbR1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tV11"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.5"
+                        android:background="@color/verde_medio"
+                        android:padding="4dp"
+                        android:text="@string/criterio_1"
+                        android:textColor="#FFFF8D"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tV12"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:background="@color/verdin"
+                        android:gravity="center"
+                        android:padding="4dp"
+                        android:text="@string/destino_1"
+                        android:textColor="#FFFF8D"
+                        android:textSize="14sp" />
+
+                </TableRow>
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@color/rojo" />
+
+                <TableRow
+                    android:id="@+id/tbR2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tV21"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.5"
+                        android:background="@color/verdin"
+                        android:padding="4dp"
+                        android:text="@string/criterio_2"
+                        android:textColor="#FFFF8D"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tV22"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:background="@color/verde_medio"
+                        android:gravity="center"
+                        android:padding="4dp"
+                        android:text="@string/destino_2"
+                        android:textColor="#FAFAFA"
+                        android:textSize="14sp" />
+
+                </TableRow>
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@color/rojo">
+
+                </View>
+
+            </TableLayout>
+        </ScrollView>
+    </FrameLayout>
+
+    <!--scrollview :: tV11,tV12.tV21,tV22 -->
+
+    <!--ll1 :: btnStart, btnBack -->
+    <LinearLayout
+        android:id="@+id/ll1"
+
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/rV3"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnStart"
+            style="@style/MyButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/empezar" />
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/MyButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/atr_s" />
+
+    </LinearLayout>
+
+    <!--recyclerView 3 :: cruterios usados -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rV3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="8"
+        android:background="@color/cel_claro"
+        app:layout_constraintBottom_toTopOf="@id/op"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <!-- op :: tV13, spinner1, tV14 -->
+    <LinearLayout
+        android:id="@+id/op"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/postit"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tV13"
+            style="@style/AppTheme"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/verde_limon_1"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:gravity="center"
+            android:textColor="@color/ama_claro"
+            android:text="@string/ver_fichas"
+             />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/verde_limon_3"
+            android:gravity="center"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tV14"
+            style="@style/AppTheme"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/verde_limon_1"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:gravity="center"
+            android:textColor="@color/ama_claro"
+            android:text="@string/ver_g_neros"/>
+
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cel_oscur"
+    android:orientation="vertical"
+    tools:context=".fragmentos.zz_9_figuraminas">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/imV1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.85"
+        android:layout_margin="5dp"
+        android:background="@color/turqueson"
+        android:contentDescription="@string/figuraminas_desc"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/imV2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        app:layout_constraintHeight_percent="0.85"
+        android:background="@color/turqueson"
+        android:contentDescription="@string/figuraminas_desc"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/titulo1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:background="@color/celestin"
+        android:padding="5dp"
+        android:text="@string/figuras"
+        android:textColor="@color/gris_osc"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imV2"/>
+
+    <TextView
+        android:id="@+id/titulo2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:background="@color/celestin"
+        android:padding="5dp"
+        android:text="@string/lamina"
+        android:textColor="@color/gris_osc"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@+id/titulo1"
+        android:textStyle="bold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

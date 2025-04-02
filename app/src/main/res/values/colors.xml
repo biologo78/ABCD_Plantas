@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="ama_claro">#ead1a6</color>
+    <color name="black">#FF000000</color>
+    <color name="cel_oscur">#04a4cc</color>
+    <color name="celestin">#00ffff</color>
+    <color name="cel_claro">#b3e5fc</color>
+    <color name="gris_osc">#454349</color>
+    <color name="gris_os">#7b889e</color>
+    <color name="grisin">#778899</color>
+    <color name="mio">#a3a3a3</color>
+    <color name="naran_claro">#eba835</color>
+    <color name="naranjin">#FF8C00</color>
+    <color name="postit">#ffff00</color>
+    <color name="purpura">#9455f4</color>
+    <color name="purpur_cla">#651fff</color>
+    <color name="purpur_osc">#450b70</color>
+    <color name ="purpura1">#a349a3</color>
+    <color name="rojo">#ff0000</color>
+    <color name="rosa_claro">#ff95d6</color>
+    <color name="turqueson">#00ced1</color>
+    <color name="verdeclaro">#1FB9EDC2</color>
+    <color name="verde_limon_5">#00ff00</color>
+    <color name="verde_medio">#4dc247</color>
+    <color name="verdin">#53a318</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="verde_limon_4">#33ff33</color>
+    <color name="verde_limon_3">#66ff66</color>
+    <color name="verde_limon_2">#99ff99</color>
+    <color name="verde_limon_1">#ccffcc</color>
+
+</resources>
