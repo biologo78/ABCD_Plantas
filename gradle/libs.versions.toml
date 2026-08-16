@@ -1,5 +1,6 @@
 [versions]
-agp = "8.9.0"
+agp = "9.2.1"
+kotlin = "2.2.10"
 androidxJunit = "1.2.1"
 appcompatVersion = "1.7.0"
 espressoCoreVersion = "3.6.1"
@@ -44,3 +45,4 @@ viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpag
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

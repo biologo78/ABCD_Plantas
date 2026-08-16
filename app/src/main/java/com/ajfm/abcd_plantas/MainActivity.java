@@ -16,6 +16,10 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import androidx.lifecycle.Observer;
 
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.graphics.Insets;
+
 public class MainActivity extends  AppCompatActivity{
 
     public static int widthTotal;
@@ -42,6 +46,12 @@ public class MainActivity extends  AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Solución para que la UI no quede debajo de los botones del sistema
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+            return windowInsets;
+        });
 
         Log.d("life", "Entrando en Main onCreate");
 
@@ -74,18 +84,6 @@ public class MainActivity extends  AppCompatActivity{
         myViewPager2.setAdapter(myAdapter);
 
         new TabLayoutMediator(tabLayout, myViewPager2, (tab, position) -> tab.setText(labels[position])).attach();
-
-
-
-
-
-        /*viewModel.getMyData().observe(this, new Observer<String>() {
-
-            public void onChanged(String newData) {
-                // Actualizar la UI con el nuevo valor
-                Log.d("modelView", "Recibido: " + newData);
-            }
-        });*/
     }
 }
 

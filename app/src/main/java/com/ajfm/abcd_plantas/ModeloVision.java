@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.ajfm.abcd_plantas.modelos.criterioGeneral;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModeloVision extends ViewModel {
@@ -80,5 +81,34 @@ public class ModeloVision extends ViewModel {
     public MutableLiveData<List<Integer>> tfines = new MutableLiveData<>();
     public LiveData<List<Integer>> gettfines() { return tfines; }
     public void settfines(List<Integer> newTfines) { tfines.setValue(newTfines); }
+
+    // Nuevos LiveData para carga asíncrona en zz_2_clave_clasificar
+    private MutableLiveData<List<criterioGeneral>> criteriosCargados = new MutableLiveData<>();
+    public LiveData<List<criterioGeneral>> getCriteriosCargados() { return criteriosCargados; }
+
+    public void cargarCriteriosAsync(android.database.sqlite.SQLiteDatabase db, String consulta, android.content.Context context) {
+        new Thread(() -> {
+            List<criterioGeneral> allCG = new ArrayList<>();
+            try {
+                android.database.Cursor cG = db.rawQuery(consulta, null);
+                if (cG != null && cG.moveToFirst()) {
+                    while (!cG.isAfterLast()) {
+                        criterioGeneral critGen = new criterioGeneral(
+                                cG.getInt(0), cG.getInt(1), cG.getInt(2),
+                                cG.getInt(3), cG.getString(4), cG.getString(5), cG.getString(6),
+                                cG.getString(7), cG.getString(8), cG.getInt(9), cG.getString(10),
+                                cG.getInt(11), cG.getString(12), cG.getString(13), cG.getString(14),
+                                cG.getString(15), cG.getInt(16), cG.getInt(17));
+                        allCG.add(critGen);
+                        cG.moveToNext();
+                    }
+                    cG.close();
+                }
+            } catch (Exception e) {
+                android.util.Log.d("error", "Error en cargarCriteriosAsync: " + e.toString());
+            }
+            criteriosCargados.postValue(allCG);
+        }).start();
+    }
 
 }

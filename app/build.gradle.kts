@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -30,51 +31,29 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-
-    allprojects {
-        repositories {
-            maven {
-                url = uri("https://www.jitpack.io")
-            }
-        }
-
-        buildscript {
-            repositories {
-                maven { url = uri("https://www.jitpack.io") }
-            }
-        }
-    }
-    dependencies {
-
-        implementation(libs.appcompat)
-        implementation(libs.material)
-        implementation(libs.activity)
-        implementation(libs.constraintlayout)
-        testImplementation(libs.junit)
-        androidTestImplementation(libs.ext.junit)
-        androidTestImplementation(libs.espresso.core)
-
-        androidTestImplementation(libs.junit.v115)
-        androidTestImplementation(libs.espresso.core.v351)
-
-        implementation(libs.sqliteassethelper)
-
-        implementation(libs.picasso)
-        implementation(libs.sqliteassethelper)
-        implementation(libs.activity.ktx)
-        implementation(libs.fragment)
-        implementation(libs.fragment.ktx)
-        implementation(libs.photoview)
-        implementation(libs.viewpager2)
-        implementation(libs.glide)
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
+
 dependencies {
-    implementation(libs.appcompat.v161)
+    implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.activity)
     implementation(libs.recyclerview)
+    implementation(libs.sqliteassethelper)
+    implementation(libs.picasso)
+    implementation(libs.activity.ktx)
+    implementation(libs.fragment)
+    implementation(libs.fragment.ktx)
+    implementation(libs.photoview)
+    implementation(libs.viewpager2)
+    implementation(libs.glide)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }

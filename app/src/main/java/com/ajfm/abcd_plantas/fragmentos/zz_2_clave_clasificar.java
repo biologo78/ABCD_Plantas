@@ -217,6 +217,15 @@ public class zz_2_clave_clasificar extends Fragment
         viewModel.gettfines().observe(getViewLifecycleOwner(), tfines -> {
             fines = tfines;
         });
+
+        // Observador para la carga asíncrona de criterios
+        viewModel.getCriteriosCargados().observe(getViewLifecycleOwner(), criterios -> {
+            if (criterios != null && !criterios.isEmpty()) {
+                allCriterios = criterios;
+                actualizarInterfazCriterios();
+            }
+        });
+
         Log.d("zz_2_life", "Valores actuales: tD:" + tD + "tF:" + tF + "tG:" + tG + "nS:" + nS + "origen:" + origen);
         Log.d("zz_2_life", "zz_2... onViewCreated, FINAL\n");
         }
@@ -258,53 +267,16 @@ public class zz_2_clave_clasificar extends Fragment
         if (origen == 9) {
             consuStringIni = viewModel.getConsuIni().getValue();
         }
-        allCriterios = cargarCriterios(consuStringIni);
+        
+        // Carga asíncrona en lugar de llamar a cargarCriterios que bloquea con el hilo.start() + while
+        viewModel.cargarCriteriosAsync(todasPlantas, consuStringIni, getContext());
+
         reiniciarFigLam();
 
-        //String cons_para_758 = "Select * from AAAA_Clave_general_4 where Id < 759 order by Id;";
-        //List<criterioGeneral> critFamilias = new ArrayList<>();
-        //critFamilias = cargarCriterios(cons_para_758);
-
-        //actualizarFam solo se usa una vez para rellenar el campo Id_en_FUC de la Clave general
-        //con los ids de la familia hasta el 758
-        //-->actualizarFam();
-        //-->Toast.makeText(getActivity(),"Actualizado Id_en_FUC",Toast.LENGTH_LONG).show();
-
-        //encontrarFamConUnGenerooCero solo se usa una vez para completar Estado_Clave con -1 si esa familia tiene un solo género o ninguno
-        //y por tanto no tiene criterios abajo, o con 1 si tiene más de un género y hay criterios en la parte de abajo de la tabla de criterios
-        //-->encontrarFamConUnGenerooCero();
-        //-->Toast.makeText(getActivity(),"Actualizado Estado_Clave. Terminado",Toast.LENGTH_LONG).show();
-
-        //actulizar  Estado_Clave, tomo los que tienen -2 (familias que no están en la 2ª parte)
-        //y compruebo si tienen algún género en AABB_Generos_unidos_4 si es así le pongo -2
-        //tambien comprubo si tiene alguna especie en AACC_Especies_unidas_4 si es así le pongo -3
-        //si no tiene ningun género ni especie le pongo -1
-        //También se debe ejecutar una sola vez al usar por primera vez la base Plantas12.sqlite
-        //-->actualizarEstadoClave();
-        //-->Toast.makeText(getActivity(),"Actualizado Estado_Clave segunda fase. Terminado",Toast.LENGTH_LONG).show();
-
-        if (!allCriterios.isEmpty()) {//He encontrado criterios que se corresponden con las consulta
-            //inical de clasificacion
-            mlayoutManagerb = new LinearLayoutManager(getContext());
-            mRecyclerViewb.setLayoutManager(mlayoutManagerb);
-            mAdapterC = new MiCritGeneral(critSelectos2, mListener, zz_2_clave_clasificar.this);
-            mRecyclerViewb.setAdapter(mAdapterC);
-            mAdapterC.setOnItemClickListener((crit, position) -> {
-                Log.d("retroceso", "=============================\nLinea 210 Click en paso " + position + " criterio: " + crit.getCriterio());
-                for (int x = 0; x <= position; x++) {
-                    retroceso4(v, 0);
-                }
-                Toast.makeText(getContext(), "Posicion: " + position + "\nCriterio:" + crit.getCriterio(), Toast.LENGTH_LONG).show();
-            });
-
-            scr2.setVisibility(View.INVISIBLE);
-            scr1.setVisibility(View.VISIBLE);
-            String s = "";
-            tV1.setText(s);
-
-            mostrandoCriterios();
-
-        } else {//No hay ningun criterio que se corresponda con la consulta inicial de clasificacion
+        if (allCriterios != null && !allCriterios.isEmpty()) {
+            actualizarInterfazCriterios();
+        } else {
+            // No hay ningun criterio que se corresponda con la consulta inicial de clasificacion
             //se supone que el criterio suminitrado en la selección previa me conduce  un elemento final
             //ya sea Genero, Especie, subEspecie no puede ser porque no se elige en los desplegables anteriores
             //Tendría que ver que tipo de final trae el criterio y buscar en su tabla el dato final
@@ -351,12 +323,8 @@ public class zz_2_clave_clasificar extends Fragment
                 tV1.setText(s);
                 btnStart.setEnabled(true);
             }
-            //Aqui se termina porque no hay mas criterios que mostrar
         }
-        //A partir de aqui queda esperando un click en alguno de los tV o en los botones
-        Log.d("zz_2_life", "Valores actuales: tD:" + tD + "tF:" + tF + "tG:" + tG + "nS:" + nS + "origen:" + origen);
-        Log.d("zz_2_life", "zz_2... onResume FINAL\n");
-        }
+    }
 
     @Override
     public void onDestroyView(){
@@ -859,6 +827,32 @@ public class zz_2_clave_clasificar extends Fragment
         }
     }
 
+
+    private void actualizarInterfazCriterios() {
+        if (allCriterios != null && !allCriterios.isEmpty()) {
+            mlayoutManagerb = new LinearLayoutManager(getContext());
+            mRecyclerViewb.setLayoutManager(mlayoutManagerb);
+            
+            // Asegurarnos de que critSelectos2 no sea null
+            if (critSelectos2 == null) critSelectos2 = new ArrayList<>();
+            
+            mAdapterC = new MiCritGeneral(critSelectos2, mListener, zz_2_clave_clasificar.this);
+            mRecyclerViewb.setAdapter(mAdapterC);
+            mAdapterC.setOnItemClickListener((crit, position) -> {
+                Log.d("retroceso", "=============================\nLinea 210 Click en paso " + position + " criterio: " + crit.getCriterio());
+                for (int x = 0; x <= position; x++) {
+                    retroceso4(v, 0);
+                }
+                Toast.makeText(getContext(), "Posicion: " + position + "\nCriterio:" + crit.getCriterio(), Toast.LENGTH_LONG).show();
+            });
+
+            scr2.setVisibility(View.INVISIBLE);
+            scr1.setVisibility(View.VISIBLE);
+            tV1.setText("");
+
+            mostrandoCriterios();
+        }
+    }
 
     private void clickado1(View v) {
         try {
